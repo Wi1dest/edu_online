@@ -24,8 +24,9 @@ import java.util.Map;
  * @since 2020-08-02
  */
 @RestController
+@RequestMapping("/eduservice/teacher")
 @Api(tags = "讲师控制器")
-@RequestMapping("/service_edu/teacher")
+@CrossOrigin
 public class EduTeacherController {
     @Autowired
     private EduTeacherService eduTeacherService;
@@ -103,7 +104,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "根据ID更新讲师资料")
-    @PutMapping("{id}")
+    @PutMapping
     public Result updateById(@RequestBody EduTeacher eduTeacher){
         boolean flag = eduTeacherService.updateById(eduTeacher);
         return flag ? Result.success() : Result.error();

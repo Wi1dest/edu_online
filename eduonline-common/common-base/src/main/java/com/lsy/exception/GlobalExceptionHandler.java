@@ -1,6 +1,7 @@
 package com.lsy.exception;
 
 import com.lsy.common.utils.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @Date 2020/08/02 22:38
  */
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EduTeacherException.class)
     public Result EduTeacherException(EduTeacherException e){
+        log.warn(e.getMsg());
         Result result = new Result();
         result.setSuccess(false);
         result.setCode(e.getCode());
@@ -24,7 +27,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public Result error(Exception e){
-        e.getStackTrace();
+        log.warn(e.getMessage());
         return Result.error("发生未知异常!");
     }
 }

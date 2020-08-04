@@ -50,6 +50,8 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
             wrapper.le("gmt_create", end);
         }
 
+        wrapper.orderByDesc("gmt_create");
+
         // 调用方法实现分页
         eduTeacherMapper.selectPage(teacherPage, wrapper);
     }
