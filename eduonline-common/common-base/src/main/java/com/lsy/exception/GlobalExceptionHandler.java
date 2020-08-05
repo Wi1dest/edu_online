@@ -15,6 +15,26 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(EduCourseException.class)
+    public Result EduCourseException(EduCourseException e){
+        log.warn(e.getMsg());
+        Result result = new Result();
+        result.setSuccess(false);
+        result.setCode(e.getCode());
+        result.setMessage(e.getMsg());
+        return result;
+    }
+
+    @ExceptionHandler(ExcelException.class)
+    public Result ExcelException(ExcelException e){
+        log.warn(e.getMsg());
+        Result result = new Result();
+        result.setSuccess(false);
+        result.setCode(e.getCode());
+        result.setMessage(e.getMsg());
+        return result;
+    }
+
     @ExceptionHandler(EduTeacherException.class)
     public Result EduTeacherException(EduTeacherException e){
         log.warn(e.getMsg());
