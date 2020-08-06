@@ -1,8 +1,8 @@
 package com.lsy.service_edu.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.entity.EduCourse;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -18,4 +18,17 @@ public interface EduCourseService extends IService<EduCourse> {
      * @param courseDTO 课程DTO类
      */
     String saveCourse(CourseDTO courseDTO);
+
+    /**
+     * 根据课程ID查询课程信息
+     * @param courseId
+     * @return
+     */
+    CourseDTO getCourseInfo(String courseId);
+
+    /**
+     * 根据课程ID 更新
+     * @param courseDTO
+     */
+    void updateCourseInfo(CourseDTO courseDTO);
 }

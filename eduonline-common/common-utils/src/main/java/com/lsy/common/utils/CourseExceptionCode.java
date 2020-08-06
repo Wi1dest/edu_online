@@ -10,7 +10,8 @@ import lombok.Getter;
  */
 @Getter
 public enum  CourseExceptionCode {
-    INSERT_COURSE_ERROR(42000,"课程添加失败!")
+    INSERT_COURSE_ERROR(42000,"课程添加失败!"),
+    UPDATE_COURSE_ERROR(42001,"课程更新失败!")
     ;
     private Integer code;
 

@@ -2,7 +2,7 @@ package com.lsy.service_edu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lsy.service_edu.entity.EduSubject;
-import com.lsy.service_edu.vo.OneSubjectVO;
+import com.lsy.service_edu.vo.subject.OneSubjectVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

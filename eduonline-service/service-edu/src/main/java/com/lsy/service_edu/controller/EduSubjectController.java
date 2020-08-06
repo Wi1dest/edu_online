@@ -3,7 +3,7 @@ package com.lsy.service_edu.controller;
 
 import com.lsy.common.utils.Result;
 import com.lsy.service_edu.service.EduSubjectService;
-import com.lsy.service_edu.vo.OneSubjectVO;
+import com.lsy.service_edu.vo.subject.OneSubjectVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

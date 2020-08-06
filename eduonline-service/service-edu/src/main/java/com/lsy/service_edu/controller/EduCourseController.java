@@ -28,4 +28,19 @@ public class EduCourseController {
         String courseId = eduCourseService.saveCourse(courseDTO);
         return Result.success(courseId);
     }
+
+    @GetMapping("getCourseInfo/{courseId}")
+    @ApiOperation("根据课程ID获取课程信息")
+    public Result getCourseInfo(@PathVariable String courseId){
+        CourseDTO courseInfo = eduCourseService.getCourseInfo(courseId);
+        return Result.success(courseInfo);
+    }
+
+    @PostMapping("updateCourseInfo")
+    @ApiOperation("更新课程信息")
+    public Result updateCourseInfo(@RequestBody CourseDTO courseDTO){
+        eduCourseService.updateCourseInfo(courseDTO);
+        return Result.success();
+    }
+
 }

@@ -13,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.lsy.common.utils.CourseExceptionCode.UPDATE_COURSE_ERROR;
+
 /**
  * <p>
  * 课程 服务实现类
@@ -30,7 +32,6 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     public String saveCourse(CourseDTO courseDTO) {
         EduCourse eduCourse = new EduCourse();
         BeanUtils.copyProperties(courseDTO,eduCourse);
-        eduCourse.setSubjectParentId("XXXXX");
         int result = baseMapper.insert(eduCourse);
         if (result <= 0){
             throw new EduCourseException(CourseExceptionCode.INSERT_COURSE_ERROR);
@@ -46,5 +47,29 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         eduCourseDescriptionService.save(eduCourseDescription);
 
         return id;
+    }
+
+    @Override
+    public CourseDTO getCourseInfo(String courseId) {
+        EduCourse eduCourse = baseMapper.selectById(courseId);
+        CourseDTO courseDTO = new CourseDTO();
+        BeanUtils.copyProperties(eduCourse,courseDTO);
+        EduCourseDescription courseDescription = eduCourseDescriptionService.getById(courseId);
+        courseDTO.setDescription(courseDescription.getDescription());
+        return courseDTO;
+    }
+
+    @Override
+    public void updateCourseInfo(CourseDTO courseDTO) {
+        EduCourse eduCourse = new EduCourse();
+        BeanUtils.copyProperties(courseDTO,eduCourse);
+        int i = baseMapper.updateById(eduCourse);
+        if (i<=0){
+            throw new EduCourseException(UPDATE_COURSE_ERROR);
+        }
+
+        EduCourseDescription courseDescription = eduCourseDescriptionService.getById(courseDTO.getId());
+        courseDescription.setDescription(courseDTO.getDescription());
+        eduCourseDescriptionService.updateById(courseDescription);
     }
 }
