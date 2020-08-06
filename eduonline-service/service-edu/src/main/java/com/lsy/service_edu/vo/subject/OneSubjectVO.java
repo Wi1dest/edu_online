@@ -1,4 +1,4 @@
-package com.lsy.service_edu.vo;
+package com.lsy.service_edu.vo.subject;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

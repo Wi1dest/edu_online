@@ -12,6 +12,7 @@ import com.lsy.service_edu.vo.chapter.VideoVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +69,21 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
             list.add(chapterVO);
         }
         return list;
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteChapter(String chapterId) {
+        // 根据章节ID查找该章节下的所有小节
+        QueryWrapper<EduVideo> wrapper = new QueryWrapper<>();
+        wrapper.eq("chapter_id",chapterId);
+        List<EduVideo> list = eduVideoService.list(wrapper);
+        for (EduVideo eduVideo : list) {
+            // 将该章节下的小节一个一个删除
+            eduVideoService.removeById(eduVideo.getId());
+        }
+        // 删除章节
+        int i = baseMapper.deleteById(chapterId);
+        return i>0 ? true : false;
     }
 }

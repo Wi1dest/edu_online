@@ -36,7 +36,7 @@ public class EduCourseController {
         return Result.success(courseInfo);
     }
 
-    @PostMapping("updateCourseInfo")
+    @PutMapping("updateCourseInfo")
     @ApiOperation("更新课程信息")
     public Result updateCourseInfo(@RequestBody CourseDTO courseDTO){
         eduCourseService.updateCourseInfo(courseDTO);

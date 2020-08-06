@@ -1,6 +1,7 @@
 package com.lsy.service_edu.controller;
 
 import com.lsy.common.utils.Result;
+import com.lsy.service_edu.entity.EduChapter;
 import com.lsy.service_edu.service.EduChapterService;
 import com.lsy.service_edu.vo.chapter.ChapterVO;
 import io.swagger.annotations.Api;
@@ -29,5 +30,26 @@ public class EduChapterController {
     public Result getChapterVideo(@PathVariable String courseId){
         List<ChapterVO> chapterVOList = eduChapterService.getChapterVideoByCourseId(courseId);
         return Result.success(chapterVOList);
+    }
+
+    @ApiOperation("添加章节")
+    @PostMapping("saveChapter")
+    public Result addChapter(@RequestBody EduChapter eduChapter){
+        boolean flag = eduChapterService.save(eduChapter);
+        return flag == true ? Result.success() : Result.error();
+    };
+
+    @ApiOperation("根据章节ID查询章节信息")
+    @GetMapping("getChapter/{chapterId}")
+    public Result getChapter(@PathVariable String chapterId){
+        EduChapter chapter = eduChapterService.getById(chapterId);
+        return Result.success(chapter);
+    }
+
+    @ApiOperation("根据章节ID删除章节")
+    @DeleteMapping("{chapterId}")
+    public Result deleteChapter(@PathVariable String chapterId){
+        boolean flag = eduChapterService.deleteChapter(chapterId);
+        return flag == true ? Result.success() : Result.error();
     }
 }
