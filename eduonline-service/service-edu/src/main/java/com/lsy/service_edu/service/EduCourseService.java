@@ -3,6 +3,7 @@ package com.lsy.service_edu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.entity.EduCourse;
+import com.lsy.service_edu.vo.course.CoursePublishVo;
 
 /**
  * <p>
@@ -31,4 +32,11 @@ public interface EduCourseService extends IService<EduCourse> {
      * @param courseDTO
      */
     void updateCourseInfo(CourseDTO courseDTO);
+
+    /**
+     * 根据课程ID获取发布课程信息
+     * @param courseId
+     * @return
+     */
+    CoursePublishVo getCoursePublish(String courseId);
 }

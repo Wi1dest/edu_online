@@ -9,6 +9,7 @@ import com.lsy.service_edu.mapper.EduCourseMapper;
 import com.lsy.service_edu.service.EduCourseDescriptionService;
 import com.lsy.service_edu.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lsy.service_edu.vo.course.CoursePublishVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ import static com.lsy.common.utils.CourseExceptionCode.UPDATE_COURSE_ERROR;
 public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse> implements EduCourseService {
     @Autowired
     private EduCourseDescriptionService eduCourseDescriptionService;
+
+    @Autowired
+    private EduCourseMapper eduCourseMapper;
 
     @Override
     public String saveCourse(CourseDTO courseDTO) {
@@ -71,5 +75,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         EduCourseDescription courseDescription = eduCourseDescriptionService.getById(courseDTO.getId());
         courseDescription.setDescription(courseDTO.getDescription());
         eduCourseDescriptionService.updateById(courseDescription);
+    }
+
+    @Override
+    public CoursePublishVo getCoursePublish(String courseId) {
+        CoursePublishVo coursePublishInfo = eduCourseMapper.getCoursePublishInfo(courseId);
+        return coursePublishInfo;
     }
 }

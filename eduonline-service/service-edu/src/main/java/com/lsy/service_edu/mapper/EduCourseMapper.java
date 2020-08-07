@@ -2,6 +2,7 @@ package com.lsy.service_edu.mapper;
 
 import com.lsy.service_edu.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lsy.service_edu.vo.course.CoursePublishVo;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-08-02
  */
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
-
+    CoursePublishVo getCoursePublishInfo(String courseId);
 }
