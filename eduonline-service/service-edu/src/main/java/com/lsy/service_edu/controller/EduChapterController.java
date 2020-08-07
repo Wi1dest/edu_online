@@ -52,4 +52,11 @@ public class EduChapterController {
         boolean flag = eduChapterService.deleteChapter(chapterId);
         return flag == true ? Result.success() : Result.error();
     }
+
+    @ApiOperation("根据章节ID更新章节")
+    @PutMapping("updateChapter")
+    public Result updateChapter(@RequestBody EduChapter eduChapter){
+        boolean flag = eduChapterService.updateById(eduChapter);
+        return flag == true ? Result.success() : Result.error();
+    }
 }
