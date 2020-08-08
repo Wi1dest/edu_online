@@ -109,8 +109,9 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             wrapper.eq("status",status);
         }
         if (!StringUtils.isEmpty(title)){
-            wrapper.eq("title",title);
+            wrapper.like("title",title);
         }
+        wrapper.orderByDesc("gmt_modified");
         eduCourseMapper.selectPage(eduCoursePage,wrapper);
     }
 
