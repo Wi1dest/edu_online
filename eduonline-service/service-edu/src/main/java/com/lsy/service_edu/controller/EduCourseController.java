@@ -1,14 +1,20 @@
 package com.lsy.service_edu.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lsy.common.utils.Result;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.entity.EduCourse;
 import com.lsy.service_edu.service.EduCourseService;
+import com.lsy.service_edu.vo.CourseVO;
 import com.lsy.service_edu.vo.course.CoursePublishVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author : Lo Shu-ngan
@@ -58,6 +64,49 @@ public class EduCourseController {
         EduCourse course = eduCourseService.getById(courseId);
         course.setStatus("Normal");
         boolean flag = eduCourseService.updateById(course);
+        return flag == true ? Result.success() : Result.error();
+    }
+
+    @ApiOperation("分页程信息")
+    @GetMapping("/getCourse/{current}/{limit}")
+    public Result getCourseInfo(@PathVariable Long current,@PathVariable Long limit){
+        // 创建page对象
+        Page<EduCourse> eduCoursePage = new Page<>(current,limit);
+        // 调用方法实现分页
+        eduCourseService.page(eduCoursePage,null);
+
+        // 获取总记录数
+        long total = eduCoursePage.getTotal();
+        List<EduCourse> courseList = eduCoursePage.getRecords();
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("rows",courseList);
+        return Result.success(map);
+    }
+
+    @ApiOperation("多条件分页程信息")
+    @PostMapping("/getCourse/{current}/{limit}")
+    public Result getCourseInfoCondition(@PathVariable Long current,@PathVariable Long limit, @RequestBody(required = false) CourseVO courseVO){
+        // 创建Page对象
+        Page<EduCourse> eduCoursePage = new Page<>(current,limit);
+        // 使用方法分页
+        eduCourseService.pageQuery(eduCoursePage,courseVO);
+
+        // 获取总记录
+        long total = eduCoursePage.getTotal();
+        List<EduCourse> courseList = eduCoursePage.getRecords();
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("rows",courseList);
+        return Result.success(map);
+    }
+
+    @ApiOperation("删除课程")
+    @DeleteMapping("/deleteCourseByCourseId/{courseId}")
+    public Result deleteCourse(@PathVariable String courseId){
+        boolean flag = eduCourseService.deleteCourse(courseId);
         return flag == true ? Result.success() : Result.error();
     }
 }

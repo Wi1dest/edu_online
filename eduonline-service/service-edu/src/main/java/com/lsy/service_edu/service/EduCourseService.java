@@ -1,8 +1,10 @@
 package com.lsy.service_edu.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.entity.EduCourse;
+import com.lsy.service_edu.vo.CourseVO;
 import com.lsy.service_edu.vo.course.CoursePublishVo;
 
 /**
@@ -39,4 +41,18 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     CoursePublishVo getCoursePublish(String courseId);
+
+    /**
+     * 多条件分页查询
+     * @param eduCoursePage
+     * @param courseVO
+     */
+    void pageQuery(Page<EduCourse> eduCoursePage, CourseVO courseVO);
+
+    /**
+     * 根据课程ID删除课程(包含删除章节与小节)
+     * @param courseId
+     * @return
+     */
+    boolean deleteCourse(String courseId);
 }

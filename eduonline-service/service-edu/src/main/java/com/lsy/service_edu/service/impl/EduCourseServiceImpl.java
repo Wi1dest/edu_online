@@ -1,18 +1,26 @@
 package com.lsy.service_edu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lsy.common.utils.CourseExceptionCode;
 import com.lsy.exception.EduCourseException;
 import com.lsy.service_edu.dto.CourseDTO;
+import com.lsy.service_edu.entity.EduChapter;
 import com.lsy.service_edu.entity.EduCourse;
 import com.lsy.service_edu.entity.EduCourseDescription;
+import com.lsy.service_edu.entity.EduVideo;
 import com.lsy.service_edu.mapper.EduCourseMapper;
+import com.lsy.service_edu.service.EduChapterService;
 import com.lsy.service_edu.service.EduCourseDescriptionService;
 import com.lsy.service_edu.service.EduCourseService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lsy.service_edu.service.EduVideoService;
+import com.lsy.service_edu.vo.CourseVO;
 import com.lsy.service_edu.vo.course.CoursePublishVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import static com.lsy.common.utils.CourseExceptionCode.UPDATE_COURSE_ERROR;
 
@@ -31,6 +39,14 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduCourseMapper eduCourseMapper;
+
+    @Autowired
+    private EduChapterService eduChapterService;
+
+    @Autowired
+    private EduVideoService eduVideoService;
+
+
 
     @Override
     public String saveCourse(CourseDTO courseDTO) {
@@ -81,5 +97,41 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     public CoursePublishVo getCoursePublish(String courseId) {
         CoursePublishVo coursePublishInfo = eduCourseMapper.getCoursePublishInfo(courseId);
         return coursePublishInfo;
+    }
+
+    @Override
+    public void pageQuery(Page<EduCourse> eduCoursePage, CourseVO courseVO) {
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+
+        String status = courseVO.getStatus();
+        String title = courseVO.getTitle();
+        if (!StringUtils.isEmpty(status)){
+            wrapper.eq("status",status);
+        }
+        if (!StringUtils.isEmpty(title)){
+            wrapper.eq("title",title);
+        }
+        eduCourseMapper.selectPage(eduCoursePage,wrapper);
+    }
+
+    @Override
+    public boolean deleteCourse(String courseId) {
+        // 先查小节再删除小节
+        QueryWrapper<EduVideo> wrapperVideo = new QueryWrapper<>();
+        wrapperVideo.eq("course_id",courseId);
+        eduVideoService.remove(wrapperVideo);
+
+        // 查章节删除章节
+        QueryWrapper<EduChapter> wrapperChapter = new QueryWrapper<>();
+        wrapperChapter.eq("course_id",courseId);
+        eduChapterService.remove(wrapperChapter);
+
+        // 删除该课程的简介
+        eduCourseDescriptionService.removeById(courseId);
+
+        // 删除该课程
+        int i = eduCourseMapper.deleteById(courseId);
+
+        return i > 0 ? true : false;
     }
 }
