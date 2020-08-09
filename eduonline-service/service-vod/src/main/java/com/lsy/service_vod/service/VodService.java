@@ -14,4 +14,10 @@ public interface VodService {
      * @param multipartFile
      */
     String uploadVideo(MultipartFile multipartFile);
+
+    /**
+     * 删除视频
+     * @param videoId
+     */
+    void removeVideo(String videoId);
 }
