@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @Author : Lo Shu-ngan
  * @Classname VodController
@@ -34,6 +36,13 @@ public class VodController {
     @ApiOperation("删除阿里云上的视频")
     public Result deleteAliVideo(@PathVariable String videoSourceId){
         vodService.removeVideo(videoSourceId);
+        return Result.success();
+    }
+
+    @DeleteMapping("deleteAliVideoList")
+    @ApiOperation("删除多个阿里云上的视频")
+    public Result deleteAliVideoList(@RequestParam("videoSourceIdList")List<String> videoSourceIdList){
+        vodService.removeVideoList(videoSourceIdList);
         return Result.success();
     }
 }

@@ -11,11 +11,13 @@ import com.lsy.exception.AliVodException;
 import com.lsy.service_vod.service.VodService;
 import com.lsy.service_vod.utils.ConstantPropertiesUtil;
 import com.lsy.service_vod.utils.InitVodCilent;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import static com.lsy.common.utils.AliVodExceptionCode.DELETE_VOD_ERROR;
 import static com.lsy.common.utils.AliVodExceptionCode.UPLOAD_VOD_ERROR;
@@ -69,4 +71,27 @@ public class VodServiceImpl implements VodService {
             throw new AliVodException(DELETE_VOD_ERROR);
         }
     }
+
+    @Override
+    public void removeVideoList(List<String> videoIdList) {
+        System.out.println("ilhlihsalijl;akslkhlkdhlishdlkhsldlkshdlksjl");
+        try {
+            //初始化对象
+            DefaultAcsClient acsClient = InitVodCilent.initVodClient(ConstantPropertiesUtil.ACCESS_KEY_ID,ConstantPropertiesUtil.ACCESS_KEY_SECRET);
+            //创建删除视频request对象
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            //将videoList拆分成 数据1,数据2,数据3 格式
+            String videoIds = StringUtils.join(videoIdList.toArray(), ",");
+            //向request设置视频id
+            request.setVideoIds(videoIds);
+            //调用初始化对象的方法实现删除
+            acsClient.getAcsResponse(request);
+        } catch (ServerException e) {
+            e.printStackTrace();
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw new AliVodException(DELETE_VOD_ERROR);
+        }
+    }
+
 }

@@ -2,6 +2,9 @@ package com.lsy.service_vod.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
+
 /**
  * @Author : Lo Shu-ngan
  * @Classname VodService
@@ -20,4 +23,10 @@ public interface VodService {
      * @param videoId
      */
     void removeVideo(String videoId);
+
+    /**
+     * 删除多个视频
+     * @param videoIdList
+     */
+    void removeVideoList(List<String> videoIdList);
 }

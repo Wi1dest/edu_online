@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lsy.common.utils.CourseExceptionCode;
 import com.lsy.exception.EduCourseException;
+import com.lsy.service_edu.client.VodClient;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.entity.EduChapter;
 import com.lsy.service_edu.entity.EduCourse;
@@ -21,6 +22,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.lsy.common.utils.CourseExceptionCode.UPDATE_COURSE_ERROR;
 
@@ -45,6 +49,9 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduVideoService eduVideoService;
+
+    @Autowired
+    private VodClient vodClient;
 
 
 
@@ -118,9 +125,20 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Override
     public boolean deleteCourse(String courseId) {
         // 先查小节再删除小节
+        //          删视频
         QueryWrapper<EduVideo> wrapperVideo = new QueryWrapper<>();
         wrapperVideo.eq("course_id",courseId);
-        eduVideoService.remove(wrapperVideo);
+        wrapperVideo.select("video_source_id");
+        List<EduVideo> videoList = eduVideoService.list(wrapperVideo);
+        if (videoList.size()>0){
+            List<String> list = videoList.stream().map(e -> e.getVideoSourceId()).collect(Collectors.toList());
+            vodClient.deleteAliVideoList(list);
+        }
+
+        //          删课程
+        QueryWrapper<EduVideo> wrapperVideoToDel = new QueryWrapper<>();
+        wrapperVideoToDel.eq("course_id",courseId);
+        eduVideoService.remove(wrapperVideoToDel);
 
         // 查章节删除章节
         QueryWrapper<EduChapter> wrapperChapter = new QueryWrapper<>();
