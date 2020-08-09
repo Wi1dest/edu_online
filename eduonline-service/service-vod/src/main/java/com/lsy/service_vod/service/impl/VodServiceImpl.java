@@ -74,7 +74,6 @@ public class VodServiceImpl implements VodService {
 
     @Override
     public void removeVideoList(List<String> videoIdList) {
-        System.out.println("ilhlihsalijl;akslkhlkdhlishdlkhsldlkshdlksjl");
         try {
             //初始化对象
             DefaultAcsClient acsClient = InitVodCilent.initVodClient(ConstantPropertiesUtil.ACCESS_KEY_ID,ConstantPropertiesUtil.ACCESS_KEY_SECRET);
