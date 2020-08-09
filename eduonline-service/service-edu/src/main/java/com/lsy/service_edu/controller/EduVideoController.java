@@ -1,11 +1,13 @@
 package com.lsy.service_edu.controller;
 
 import com.lsy.common.utils.Result;
+import com.lsy.service_edu.client.VodClient;
 import com.lsy.service_edu.entity.EduVideo;
 import com.lsy.service_edu.service.EduVideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,6 +24,9 @@ public class EduVideoController {
     @Autowired
     private EduVideoService eduVideoService;
 
+    @Autowired
+    private VodClient vodClient;
+
     @ApiOperation("添加小节")
     @PostMapping("saveChapter")
     public Result addVideo(@RequestBody EduVideo eduVideo){
@@ -32,6 +37,10 @@ public class EduVideoController {
     @ApiOperation("删除小节")
     @DeleteMapping("{videoId}")
     public Result deleteVideoByVideoId(@PathVariable String videoId){
+        EduVideo video = eduVideoService.getById(videoId);
+        if (!StringUtils.isEmpty(video.getVideoSourceId())){
+            vodClient.deleteAliVideo(video.getVideoSourceId());
+        }
         boolean flag = eduVideoService.removeById(videoId);
         return flag == true ? Result.success() : Result.error();
     }

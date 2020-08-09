@@ -32,7 +32,7 @@ public class VodController {
 
     @DeleteMapping("deleteAliVideo/{videoSourceId}")
     @ApiOperation("删除阿里云上的视频")
-    public Result deleeteAliVideo(@PathVariable String videoSourceId){
+    public Result deleteAliVideo(@PathVariable String videoSourceId){
         vodService.removeVideo(videoSourceId);
         return Result.success();
     }
