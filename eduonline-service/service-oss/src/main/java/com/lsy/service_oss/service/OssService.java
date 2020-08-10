@@ -14,4 +14,10 @@ public interface OssService {
      * @return 返回头像URL
      */
     String uploadFileAvatar(MultipartFile file);
+
+    /**
+     * 上传Banner
+     * @return 返回BannerURL
+     */
+    String uploadFileBanner(MultipartFile file);
 }

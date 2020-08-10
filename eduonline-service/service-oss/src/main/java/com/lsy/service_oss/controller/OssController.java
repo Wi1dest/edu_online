@@ -37,4 +37,14 @@ public class OssController {
         map.put("url",avatarUrl);
         return Result.success(map);
     }
+
+    @ApiOperation("Banner上传")
+    @PostMapping("banner")
+    public Result uploadOssFileBanner(MultipartFile file){
+        // 获取上传文件MultipartFile
+        String bannerUrl = ossService.uploadFileBanner(file);
+        Map<String,String> map = new HashMap<>();
+        map.put("url",bannerUrl);
+        return Result.success(map);
+    }
 }
