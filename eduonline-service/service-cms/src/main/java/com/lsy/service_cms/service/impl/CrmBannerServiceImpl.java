@@ -24,7 +24,8 @@ public class CrmBannerServiceImpl extends ServiceImpl<CrmBannerMapper, CrmBanner
     public List<CrmBanner> selectAllBanner() {
         //根据id进行降序排列，显示排列之后前两条记录
         QueryWrapper<CrmBanner> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("id").last("limit 2");
+        wrapper.orderByDesc("id").last("limit 4");
+        wrapper.eq("is_deleted","false");
         List<CrmBanner> crmBanners = baseMapper.selectList(wrapper);
         return crmBanners;
     }
