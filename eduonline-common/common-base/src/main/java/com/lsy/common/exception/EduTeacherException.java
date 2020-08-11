@@ -1,4 +1,4 @@
-package com.lsy.exception;
+package com.lsy.common.exception;
 
 import com.lsy.common.utils.TeacherExceptionCode;
 import lombok.Data;

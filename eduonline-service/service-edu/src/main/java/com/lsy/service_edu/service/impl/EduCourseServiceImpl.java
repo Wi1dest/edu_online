@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lsy.common.utils.CourseExceptionCode;
-import com.lsy.exception.EduCourseException;
+import com.lsy.common.exception.EduCourseException;
 import com.lsy.service_edu.client.VodClient;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.entity.EduChapter;

@@ -7,7 +7,7 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
-import com.lsy.exception.AliVodException;
+import com.lsy.common.exception.AliVodException;
 import com.lsy.service_vod.service.VodService;
 import com.lsy.service_vod.utils.ConstantPropertiesUtil;
 import com.lsy.service_vod.utils.InitVodCilent;

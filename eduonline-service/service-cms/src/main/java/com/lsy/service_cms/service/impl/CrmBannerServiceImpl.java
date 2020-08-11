@@ -1,10 +1,11 @@
 package com.lsy.service_cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lsy.service_cms.entity.CrmBanner;
 import com.lsy.service_cms.mapper.CrmBannerMapper;
 import com.lsy.service_cms.service.CrmBannerService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 @Service
 public class CrmBannerServiceImpl extends ServiceImpl<CrmBannerMapper, CrmBanner> implements CrmBannerService {
 
+    @Cacheable(value = "banner", key = "'selectIndexList'")
     @Override
     public List<CrmBanner> selectAllBanner() {
         //根据id进行降序排列，显示排列之后前两条记录

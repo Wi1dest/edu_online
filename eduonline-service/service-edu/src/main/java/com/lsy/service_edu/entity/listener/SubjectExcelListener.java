@@ -4,7 +4,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lsy.common.utils.ExcelExceptionCode;
-import com.lsy.exception.ExcelException;
+import com.lsy.common.exception.ExcelException;
 import com.lsy.service_edu.entity.EduSubject;
 import com.lsy.service_edu.entity.excel.ExcelSubjectData;
 import com.lsy.service_edu.service.EduSubjectService;

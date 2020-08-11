@@ -3,7 +3,7 @@ package com.lsy.service_edu.service.impl;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lsy.exception.ExcelException;
+import com.lsy.common.exception.ExcelException;
 import com.lsy.service_edu.entity.EduSubject;
 import com.lsy.service_edu.entity.excel.ExcelSubjectData;
 import com.lsy.service_edu.entity.listener.SubjectExcelListener;

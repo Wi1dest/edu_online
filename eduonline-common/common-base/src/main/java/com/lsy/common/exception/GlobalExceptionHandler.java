@@ -1,4 +1,4 @@
-package com.lsy.exception;
+package com.lsy.common.exception;
 
 import com.lsy.common.utils.Result;
 import lombok.extern.slf4j.Slf4j;
