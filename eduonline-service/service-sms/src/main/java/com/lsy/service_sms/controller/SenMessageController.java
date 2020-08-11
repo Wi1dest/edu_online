@@ -5,10 +5,7 @@ import com.lsy.service_sms.service.SmsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author : Lo Shu-ngan
@@ -24,9 +21,9 @@ public class SenMessageController {
     @Autowired
     private SmsService smsService;
 
-    @GetMapping("/getPhoneCode")
+    @GetMapping("getPhoneCode/{phone}")
     @ApiOperation("获取短信验证码")
-    public Result getPhoneCode(String phone){
+    public Result getPhoneCode(@PathVariable String phone){
         boolean flag = smsService.sendCode(phone);
         return flag == true ? Result.success("短信发送成功!") : Result.error("短信发送失败!");
     }

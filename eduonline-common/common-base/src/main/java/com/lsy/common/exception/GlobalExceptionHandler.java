@@ -15,6 +15,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(UcenterException.class)
+    public Result UcenterException(UcenterException e){
+        log.warn(e.getMsg());
+        Result result = new Result();
+        result.setSuccess(false);
+        result.setCode(e.getCode());
+        result.setMessage(e.getMsg());
+        return result;
+    }
+
     @ExceptionHandler(EduCourseException.class)
     public Result EduCourseException(EduCourseException e){
         log.warn(e.getMsg());

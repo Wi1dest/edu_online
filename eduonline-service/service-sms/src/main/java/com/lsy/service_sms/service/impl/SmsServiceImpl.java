@@ -17,6 +17,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.concurrent.TimeUnit;
+
 
 /**
  * @Author : Lo Shu-ngan
@@ -35,8 +37,8 @@ public class SmsServiceImpl implements SmsService {
         if(StringUtils.isEmpty(phone)) return false;
         // 随机生成6位验证码
         String code = RandomUtil.getSixBitRandom();
-        // 存入redis
-        redisTemplate.opsForValue().set(phone,code);
+        // 验证码存入redis 5分钟过期
+        redisTemplate.opsForValue().set(phone,code,5, TimeUnit.MINUTES);
         // 开始发送短信
         DefaultProfile profile =
                 DefaultProfile.getProfile("default", ConstantPropertiesUtil.ACCESS_KEY_ID, ConstantPropertiesUtil.ACCESS_KEY_SECRET);
