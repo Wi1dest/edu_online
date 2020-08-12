@@ -1,4 +1,4 @@
-package com.lsy.service_edu.controller;
+package com.lsy.service_edu.controller.front;
 
 import com.lsy.common.utils.Result;
 import com.lsy.service_edu.service.EduIndexService;
