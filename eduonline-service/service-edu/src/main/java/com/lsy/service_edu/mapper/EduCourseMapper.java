@@ -1,7 +1,8 @@
 package com.lsy.service_edu.mapper;
 
-import com.lsy.service_edu.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lsy.service_edu.entity.EduCourse;
+import com.lsy.service_edu.vo.CourseFrontVO;
 import com.lsy.service_edu.vo.course.CoursePublishVo;
 
 /**
@@ -14,4 +15,6 @@ import com.lsy.service_edu.vo.course.CoursePublishVo;
  */
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
     CoursePublishVo getCoursePublishInfo(String courseId);
+
+    CourseFrontVO selectFrontCourseInfo(String courseId);
 }

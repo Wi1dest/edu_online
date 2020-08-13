@@ -14,4 +14,36 @@
         LEFT JOIN edu_teacher ET ON ET.id = EC.teacher_id
         WHERE EC.id = #{courseId}
     </select>
+
+    <select id="selectFrontCourseInfo" resultType="com.lsy.service_edu.vo.CourseFrontVO">
+        SELECT
+        EC.id,
+        EC.title,
+        EC.cover,
+        CONVERT(EC.price, DECIMAL(8,2)) AS price,
+        EC.lesson_num AS lessonNum,
+        EC.cover,
+        EC.buy_count AS buyCount,
+        EC.view_count AS viewCount,
+        ECD.description,
+
+        ET.id AS teacherId,
+        ET.name AS teacherName,
+        ET.intro,
+        ET.avatar,
+
+        ES1.id AS subjectLevelOneId,
+        ES1.title AS subjectLevelOne,
+        ES2.id AS subjectLevelTwoId,
+        ES2.title AS subjectLevelTwo
+
+        FROM
+        edu_course EC
+        LEFT JOIN edu_course_description ECD ON EC.id = ECD.id
+        LEFT JOIN edu_teacher ET ON EC.teacher_id = ET.id
+        LEFT JOIN edu_subject ES1 ON EC.subject_parent_id = ES1.id
+        LEFT JOIN edu_subject ES2 ON EC.subject_id = ES2.id
+        WHERE
+        EC.id = #{id}
+    </select>
 </mapper>

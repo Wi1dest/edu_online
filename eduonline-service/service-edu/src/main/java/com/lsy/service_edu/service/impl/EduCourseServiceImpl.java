@@ -17,6 +17,7 @@ import com.lsy.service_edu.service.EduChapterService;
 import com.lsy.service_edu.service.EduCourseDescriptionService;
 import com.lsy.service_edu.service.EduCourseService;
 import com.lsy.service_edu.service.EduVideoService;
+import com.lsy.service_edu.vo.CourseFrontVO;
 import com.lsy.service_edu.vo.CourseVO;
 import com.lsy.service_edu.vo.course.CoursePublishVo;
 import org.springframework.beans.BeanUtils;
@@ -190,5 +191,19 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         map.put("hasNext", coursePage.hasNext());
         map.put("hasPrevious", coursePage.hasPrevious());
         return map;
+    }
+
+    @Override
+    public CourseFrontVO getFrontCourseInfo(String courseId) {
+        this.updateCourseViewCount(courseId);
+        CourseFrontVO courseFrontVO = baseMapper.selectFrontCourseInfo(courseId);
+        return courseFrontVO;
+    }
+
+    @Override
+    public void updateCourseViewCount(String courseId) {
+        EduCourse eduCourse = baseMapper.selectById(courseId);
+        eduCourse.setViewCount(eduCourse.getViewCount() + 1);
+        baseMapper.updateById(eduCourse);
     }
 }

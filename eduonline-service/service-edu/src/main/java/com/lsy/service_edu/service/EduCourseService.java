@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.dto.front.CourseFrontQueryDTO;
 import com.lsy.service_edu.entity.EduCourse;
+import com.lsy.service_edu.vo.CourseFrontVO;
 import com.lsy.service_edu.vo.CourseVO;
 import com.lsy.service_edu.vo.course.CoursePublishVo;
 
@@ -66,4 +67,17 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     Map<String, Object> getCoursePageList(Page<EduCourse> coursePage, CourseFrontQueryDTO courseFrontDTO);
+
+    /**
+     * 前端查询课程详情
+     * @param courseId
+     * @return
+     */
+    CourseFrontVO getFrontCourseInfo(String courseId);
+
+    /**
+     * 更新课程观看数
+     * @param courseId
+     */
+    void updateCourseViewCount(String courseId);
 }

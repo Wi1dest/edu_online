@@ -35,11 +35,13 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         // 根据传过来的课程ID 查到该课程ID里的所有章节
         QueryWrapper<EduChapter> wrapperChapter = new QueryWrapper<>();
         wrapperChapter.eq("course_id",courseId);
+        wrapperChapter.orderByAsc("sort");
         List<EduChapter> chapterList = baseMapper.selectList(wrapperChapter);
 
         // 根据传过来的课程ID 查到该课程ID里的所有小节
         QueryWrapper<EduVideo> wrapperVideo = new QueryWrapper<>();
         wrapperVideo.eq("course_id" ,courseId);
+        wrapperVideo.orderByAsc("sort");
         List<EduVideo> videoList = eduVideoService.list(wrapperVideo);
 
         // 封装结果List
