@@ -7,6 +7,8 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.lsy.common.exception.AliVodException;
 import com.lsy.service_vod.service.VodService;
 import com.lsy.service_vod.utils.ConstantPropertiesUtil;
@@ -19,8 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import static com.lsy.common.utils.AliVodExceptionCode.DELETE_VOD_ERROR;
-import static com.lsy.common.utils.AliVodExceptionCode.UPLOAD_VOD_ERROR;
+import static com.lsy.common.utils.AliVodExceptionCode.*;
 
 /**
  * @Author : Lo Shu-ngan
@@ -91,6 +92,27 @@ public class VodServiceImpl implements VodService {
             e.printStackTrace();
             throw new AliVodException(DELETE_VOD_ERROR);
         }
+    }
+
+    @Override
+    public String getVideoPlayAuth(String videoId) {
+        //初始化
+        DefaultAcsClient client = InitVodCilent.initVodClient(ConstantPropertiesUtil.ACCESS_KEY_ID,ConstantPropertiesUtil.ACCESS_KEY_SECRET);
+        //请求
+        GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
+        request.setVideoId(videoId);
+
+        String playAuth;
+        try {
+            //响应
+            GetVideoPlayAuthResponse response = client.getAcsResponse(request);
+
+            //得到播放凭证
+            playAuth = response.getPlayAuth();
+        } catch (ClientException e) {
+            throw new AliVodException(GET_PLAY_AUTH_ERROR);
+        }
+        return playAuth;
     }
 
 }

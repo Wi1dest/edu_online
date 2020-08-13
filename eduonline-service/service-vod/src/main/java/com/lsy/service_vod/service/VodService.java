@@ -29,4 +29,11 @@ public interface VodService {
      * @param videoIdList
      */
     void removeVideoList(List<String> videoIdList);
+
+    /**
+     * 根据小节ID获取视频播放凭证
+     * @param videoId
+     * @return
+     */
+    String getVideoPlayAuth(String videoId);
 }

@@ -11,7 +11,8 @@ import lombok.Getter;
 @Getter
 public enum AliVodExceptionCode {
     DELETE_VOD_ERROR(43000,"视频删除失败!"),
-    UPLOAD_VOD_ERROR(42001,"视频上传失败!")
+    UPLOAD_VOD_ERROR(42001,"视频上传失败!"),
+    GET_PLAY_AUTH_ERROR(42002,"获取视频播放凭证失败!"),
     ;
     private Integer code;
 
