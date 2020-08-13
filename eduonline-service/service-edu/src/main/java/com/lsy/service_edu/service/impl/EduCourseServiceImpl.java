@@ -3,10 +3,11 @@ package com.lsy.service_edu.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lsy.common.utils.CourseExceptionCode;
 import com.lsy.common.exception.EduCourseException;
+import com.lsy.common.utils.CourseExceptionCode;
 import com.lsy.service_edu.client.VodClient;
 import com.lsy.service_edu.dto.CourseDTO;
+import com.lsy.service_edu.dto.front.CourseFrontQueryDTO;
 import com.lsy.service_edu.entity.EduChapter;
 import com.lsy.service_edu.entity.EduCourse;
 import com.lsy.service_edu.entity.EduCourseDescription;
@@ -23,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.lsy.common.utils.CourseExceptionCode.UPDATE_COURSE_ERROR;
@@ -152,5 +155,40 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         int i = eduCourseMapper.deleteById(courseId);
 
         return i > 0 ? true : false;
+    }
+
+    @Override
+    public Map<String, Object> getCoursePageList(Page<EduCourse> coursePage, CourseFrontQueryDTO courseFrontDTO) {
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(courseFrontDTO.getSubjectParentId())) {
+            wrapper.eq("subject_parent_id", courseFrontDTO.getSubjectParentId());
+        }
+
+        if (!StringUtils.isEmpty(courseFrontDTO.getSubjectId())) {
+            wrapper.eq("subject_id", courseFrontDTO.getSubjectId());
+        }
+
+        if (!StringUtils.isEmpty(courseFrontDTO.getBuyCountSort())) {
+            wrapper.orderByDesc("buy_count");
+        }
+
+        if (!StringUtils.isEmpty(courseFrontDTO.getGmtCreateSort())) {
+            wrapper.orderByDesc("gmt_create");
+        }
+
+        if (!StringUtils.isEmpty(courseFrontDTO.getPriceSort())) {
+            wrapper.orderByDesc("price");
+        }
+
+        baseMapper.selectPage(coursePage, wrapper);
+        Map<String,Object> map = new HashMap<>();
+        map.put("items",coursePage.getRecords());
+        map.put("current", coursePage.getCurrent());
+        map.put("pages", coursePage.getPages());
+        map.put("size", coursePage.getSize());
+        map.put("total", coursePage.getTotal());
+        map.put("hasNext", coursePage.hasNext());
+        map.put("hasPrevious", coursePage.hasPrevious());
+        return map;
     }
 }

@@ -3,9 +3,12 @@ package com.lsy.service_edu.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lsy.service_edu.dto.CourseDTO;
+import com.lsy.service_edu.dto.front.CourseFrontQueryDTO;
 import com.lsy.service_edu.entity.EduCourse;
 import com.lsy.service_edu.vo.CourseVO;
 import com.lsy.service_edu.vo.course.CoursePublishVo;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -55,4 +58,12 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     boolean deleteCourse(String courseId);
+
+    /**
+     * 前端查询课程列表(有查询条件)
+     * @param coursePage
+     * @param courseFrontDTO
+     * @return
+     */
+    Map<String, Object> getCoursePageList(Page<EduCourse> coursePage, CourseFrontQueryDTO courseFrontDTO);
 }
