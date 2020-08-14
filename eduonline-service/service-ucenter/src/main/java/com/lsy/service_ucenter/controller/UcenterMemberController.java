@@ -52,9 +52,9 @@ public class UcenterMemberController {
 
     @ApiOperation("根据Token获取用户信息[微服务内部调用]")
     @GetMapping("auth/getMemberInfoByToken/{token}")
-    public Result getMemberInfoByToken(@PathVariable String token){
+    public MemberVo getMemberInfoByToken(@PathVariable String token){
         MemberVo memberVo = memberService.getMemberInfoFromToken(token);
-        return Result.success(memberVo);
+        return memberVo;
     }
 }
 

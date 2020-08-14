@@ -1,16 +1,14 @@
 package com.lsy.service_edu.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lsy.common.exception.EduCommentException;
-import com.lsy.common.utils.Result;
 import com.lsy.service_edu.client.MemberClient;
 import com.lsy.service_edu.entity.EduComment;
 import com.lsy.service_edu.mapper.EduCommentMapper;
 import com.lsy.service_edu.service.EduCommentService;
+import com.lsy.service_ucenter.entity.vo.MemberVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,9 +52,9 @@ public class EduCommentServiceImpl extends ServiceImpl<EduCommentMapper, EduComm
 
     @Override
     public boolean editCommentByMemberId(EduComment eduComment, HttpServletRequest request) {
-        Map<String, String> map = this.checkTokenToGetLoginId(request);
-        String loginMemberId = map.get("id");
-        if (!eduComment.getMemberId().equals(loginMemberId)){
+        String loginMemberId = request.getHeader("token");
+        MemberVo member = memberClient.getMemberInfoByToken(loginMemberId);
+        if (!eduComment.getMemberId().equals(member.getId())){
             throw new EduCommentException(COMMENT_UPDATE_ERROR);
         }
         int i = baseMapper.updateById(eduComment);
@@ -65,10 +63,10 @@ public class EduCommentServiceImpl extends ServiceImpl<EduCommentMapper, EduComm
 
     @Override
     public boolean deleteCommentByCommentId(String id,HttpServletRequest request) {
-        Map<String, String> map = this.checkTokenToGetLoginId(request);
-        String loginMemberId = map.get("id");
+        String loginMemberId = request.getHeader("token");
+        MemberVo member = memberClient.getMemberInfoByToken(loginMemberId);
         EduComment eduComment = baseMapper.selectById(id);
-        if (!eduComment.getMemberId().equals(loginMemberId) ){
+        if (!eduComment.getMemberId().equals(member.getId()) ){
             throw new EduCommentException(COMMENT_DELETE_ERROR);
 
         }
@@ -82,38 +80,12 @@ public class EduCommentServiceImpl extends ServiceImpl<EduCommentMapper, EduComm
         if (StringUtils.isEmpty(token)){
             throw new EduCommentException(COMMENT_NEED_LOGIN);
         }
-        Map<String, String> map = this.checkTokenToGetLoginId(request);
-        comment.setMemberId(map.get("id"));
-        comment.setAvatar(map.get("avatar"));
-        comment.setNickname(map.get("nickname"));
+        MemberVo member = memberClient.getMemberInfoByToken(token);
+        comment.setMemberId(member.getId());
+        comment.setAvatar(member.getAvatar());
+        comment.setNickname(member.getNickname());
         int i = baseMapper.insert(comment);
         return i > 0 ? true : false;
-    }
-
-    /**
-     * 获取登录用户信息
-     * @param request
-     * @return
-     */
-    private  Map<String,String> checkTokenToGetLoginId(HttpServletRequest request) {
-        String token = request.getHeader("token");
-        Result memberInfoFromToken = memberClient.getMemberInfoByToken(token);
-        Object data = memberInfoFromToken.getData();
-        JSONObject json = (JSONObject) JSON.toJSON(data);
-        Object memberId = json.get("id");
-        Object avatar = json.get("avatar");
-        Object moblie = json.get("moblie");
-        Object nickname = json.get("nickname");
-        String loginMemberId = (String) memberId;
-        String loginAvatar = (String) avatar;
-        String loginMoblie = (String) moblie;
-        String loginNickname = (String) nickname;
-        Map<String,String> map = new HashMap<>();
-        map.put("id",loginMemberId);
-        map.put("avatar",loginAvatar);
-        map.put("moblie",loginMoblie);
-        map.put("nickname",loginNickname);
-        return map;
     }
 
 }
