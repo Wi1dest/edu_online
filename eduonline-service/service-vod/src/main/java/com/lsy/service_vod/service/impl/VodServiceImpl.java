@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import static com.lsy.common.utils.AliVodExceptionCode.*;
+import static com.lsy.common.enums.AliVodExceptionCode.*;
 
 /**
  * @Author : Lo Shu-ngan

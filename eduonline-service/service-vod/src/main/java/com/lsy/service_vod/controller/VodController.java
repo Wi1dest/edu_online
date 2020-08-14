@@ -45,4 +45,11 @@ public class VodController {
         vodService.removeVideoList(videoSourceIdList);
         return Result.success();
     }
+
+    @GetMapping("get-play-auth/{videoId}")
+    @ApiOperation("获取视频播放凭证")
+    public Result getVideoPlayAuth(@PathVariable String videoId) {
+        String playAuth = vodService.getVideoPlayAuth(videoId);
+        return Result.success(playAuth);
+    }
 }

@@ -35,4 +35,11 @@ public interface UcenterMemberService extends IService<UcenterMember> {
      * @return
      */
     MemberVo getMemberInfoFromRequest(HttpServletRequest request);
+
+    /**
+     * 通过token获取用户信息
+     * @param token
+     * @return
+     */
+    MemberVo getMemberInfoFromToken(String token);
 }

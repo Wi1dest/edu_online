@@ -1,18 +1,18 @@
-package com.lsy.common.utils;
+package com.lsy.common.enums;
 
 import lombok.Getter;
 
 /**
  * @Author : Lo Shu-ngan
- * @Classname CourseExceptionCode
+ * @Classname AliVodExceptionCode
  * @Description 课程异常枚举
  * @Date 2020/08/05 17:53
  */
 @Getter
 public enum AliVodExceptionCode {
     DELETE_VOD_ERROR(43000,"视频删除失败!"),
-    UPLOAD_VOD_ERROR(42001,"视频上传失败!"),
-    GET_PLAY_AUTH_ERROR(42002,"获取视频播放凭证失败!"),
+    UPLOAD_VOD_ERROR(43001,"视频上传失败!"),
+    GET_PLAY_AUTH_ERROR(43002,"获取视频播放凭证失败!"),
     ;
     private Integer code;
 

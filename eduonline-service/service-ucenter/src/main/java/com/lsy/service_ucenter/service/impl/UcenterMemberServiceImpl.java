@@ -18,7 +18,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.lsy.common.utils.UcenterExceptionCode.*;
+import static com.lsy.common.enums.UcenterExceptionCode.*;
 
 /**
  * <p>
@@ -92,7 +92,19 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
 
     @Override
     public MemberVo getMemberInfoFromRequest(HttpServletRequest request) {
-        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+        String memberId = JwtUtils.getMemberIdByRequest(request);
+        UcenterMember ucenterMember = baseMapper.selectById(memberId);
+        if (ucenterMember == null){
+            throw new UcenterException(MOBILE_NOT_FOUND);
+        }
+        MemberVo memberVo = new MemberVo();
+        BeanUtils.copyProperties(ucenterMember,memberVo);
+        return memberVo;
+    }
+
+    @Override
+    public MemberVo getMemberInfoFromToken(String token) {
+        String memberId = JwtUtils.getMemberIdByJwtToken(token);
         UcenterMember ucenterMember = baseMapper.selectById(memberId);
         if (ucenterMember == null){
             throw new UcenterException(MOBILE_NOT_FOUND);

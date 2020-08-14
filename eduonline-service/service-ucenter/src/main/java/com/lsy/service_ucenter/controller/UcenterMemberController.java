@@ -43,10 +43,17 @@ public class UcenterMemberController {
         return Result.success(token);
     }
 
-    @ApiOperation("根据Token获取用户信息")
+    @ApiOperation("根据request得到Token并获取用户信息")
     @GetMapping("auth/getMemberInfo")
     public Result getMemberInfoFromToken(HttpServletRequest request){
         MemberVo memberVo = memberService.getMemberInfoFromRequest(request);
+        return Result.success(memberVo);
+    }
+
+    @ApiOperation("根据Token获取用户信息[微服务内部调用]")
+    @GetMapping("auth/getMemberInfoByToken/{token}")
+    public Result getMemberInfoByToken(@PathVariable String token){
+        MemberVo memberVo = memberService.getMemberInfoFromToken(token);
         return Result.success(memberVo);
     }
 }

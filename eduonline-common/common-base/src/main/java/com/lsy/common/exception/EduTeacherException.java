@@ -1,6 +1,6 @@
 package com.lsy.common.exception;
 
-import com.lsy.common.utils.TeacherExceptionCode;
+import com.lsy.common.enums.TeacherExceptionCode;
 import lombok.Data;
 
 /**

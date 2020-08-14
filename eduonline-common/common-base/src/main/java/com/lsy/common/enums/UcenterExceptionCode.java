@@ -1,4 +1,4 @@
-package com.lsy.common.utils;
+package com.lsy.common.enums;
 
 import lombok.Getter;
 

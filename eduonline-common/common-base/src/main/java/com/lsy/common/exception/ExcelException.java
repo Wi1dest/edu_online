@@ -1,6 +1,6 @@
 package com.lsy.common.exception;
 
-import com.lsy.common.utils.ExcelExceptionCode;
+import com.lsy.common.enums.ExcelExceptionCode;
 import lombok.Data;
 
 /**

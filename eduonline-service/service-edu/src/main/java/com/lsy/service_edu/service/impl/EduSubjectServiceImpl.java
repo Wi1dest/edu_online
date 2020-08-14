@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.lsy.common.utils.ExcelExceptionCode.SUBJECT_ADD_ERROR;
+import static com.lsy.common.enums.ExcelExceptionCode.SUBJECT_ADD_ERROR;
 
 /**
  * <p>

@@ -1,11 +1,11 @@
 package com.lsy.common.exception;
 
-import com.lsy.common.utils.UcenterExceptionCode;
+import com.lsy.common.enums.UcenterExceptionCode;
 import lombok.Data;
 
 /**
  * @Author : Lo Shu-ngan
- * @Classname EduCourseException
+ * @Classname UcenterException
  * @Description 课程异常类
  * @Date 2020/08/05 17:52
  */

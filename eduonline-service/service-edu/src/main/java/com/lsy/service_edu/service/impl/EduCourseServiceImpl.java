@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lsy.common.exception.EduCourseException;
-import com.lsy.common.utils.CourseExceptionCode;
+import com.lsy.common.enums.CourseExceptionCode;
 import com.lsy.service_edu.client.VodClient;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.dto.front.CourseFrontQueryDTO;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.lsy.common.utils.CourseExceptionCode.UPDATE_COURSE_ERROR;
+import static com.lsy.common.enums.CourseExceptionCode.UPDATE_COURSE_ERROR;
 
 /**
  * <p>
