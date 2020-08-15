@@ -1,5 +1,6 @@
 package com.lsy.service_order.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lsy.common.utils.OrderNoUtil;
 import com.lsy.service_edu.client.MemberClient;
@@ -51,5 +52,15 @@ public class EduOrderServiceImpl extends ServiceImpl<EduOrderMapper, EduOrder> i
         baseMapper.insert(eduOrder);
 
         return eduOrder.getOrderNo();
+    }
+
+    @Override
+    public boolean checkPayStatus(String courseId, String memberId) {
+        QueryWrapper<EduOrder> wrapper = new QueryWrapper<>();
+        wrapper.eq("course_id",courseId);
+        wrapper.eq("member_id",memberId);
+        wrapper.eq("status",1);
+        Integer integer = baseMapper.selectCount(wrapper);
+        return integer > 0 ? true : false;
     }
 }

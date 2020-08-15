@@ -19,4 +19,6 @@ public class VideoVO {
     private String title;
 
     private String videoSourceId;
+
+    private Boolean isFree;
 }

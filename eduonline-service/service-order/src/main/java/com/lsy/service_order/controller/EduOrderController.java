@@ -44,6 +44,11 @@ public class EduOrderController {
         return Result.success(order);
     }
 
-
+    @ApiOperation("根据课程ID和用户ID获取订单信息")
+    @GetMapping("checkPayStatusByCourseIdAndMemberId/{courseId}/{memberId}")
+    public boolean checkPayStatusByCourseIdAndMemberId(@PathVariable String courseId,@PathVariable String memberId) {
+        boolean flag = orderService.checkPayStatus(courseId,memberId);
+        return flag == true ? true : false;
+    }
 }
 

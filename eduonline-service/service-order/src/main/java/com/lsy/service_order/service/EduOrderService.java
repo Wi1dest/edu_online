@@ -22,4 +22,12 @@ public interface EduOrderService extends IService<EduOrder> {
      * @return
      */
     String createOrder(String courseId, HttpServletRequest request);
+
+    /**
+     * 根据课程ID和会员ID查询订单是否支付
+     * @param courseId
+     * @param memberId
+     * @return
+     */
+    boolean checkPayStatus(String courseId, String memberId);
 }
