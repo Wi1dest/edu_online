@@ -56,5 +56,11 @@ public class UcenterMemberController {
         MemberVo memberVo = memberService.getMemberInfoFromToken(token);
         return memberVo;
     }
+
+    @GetMapping(value = "countregister/{day}")
+    public int registerCount(@PathVariable String day){
+        Integer count = memberService.countRegisterByDay(day);
+        return count;
+    }
 }
 

@@ -42,4 +42,11 @@ public interface UcenterMemberService extends IService<UcenterMember> {
      * @return
      */
     MemberVo getMemberInfoFromToken(String token);
+
+    /**
+     * 统计一天注册人数
+     * @param day
+     * @return
+     */
+    Integer countRegisterByDay(String day);
 }

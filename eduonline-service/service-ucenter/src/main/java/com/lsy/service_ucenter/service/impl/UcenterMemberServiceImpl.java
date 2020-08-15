@@ -113,4 +113,10 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         BeanUtils.copyProperties(ucenterMember,memberVo);
         return memberVo;
     }
+
+    @Override
+    public Integer countRegisterByDay(String day) {
+        int count = baseMapper.selectRegisterCount(day);
+        return count;
+    }
 }
