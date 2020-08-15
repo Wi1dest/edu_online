@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * @Author : Lo Shu-ngan
  * @Classname CommentExceptionCode
- * @Description 课程异常枚举
+ * @Description 评论异常枚举
  * @Date 2020/08/05 17:53
  */
 @Getter

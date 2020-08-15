@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * @Author : Lo Shu-ngan
  * @Classname UcenterException
- * @Description 课程异常类
+ * @Description 用户异常类
  * @Date 2020/08/05 17:52
  */
 @Data

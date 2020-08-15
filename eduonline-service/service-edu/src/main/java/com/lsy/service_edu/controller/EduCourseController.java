@@ -5,6 +5,7 @@ import com.lsy.common.utils.Result;
 import com.lsy.service_edu.dto.CourseDTO;
 import com.lsy.service_edu.entity.EduCourse;
 import com.lsy.service_edu.service.EduCourseService;
+import com.lsy.service_edu.vo.CourseFrontVO;
 import com.lsy.service_edu.vo.CourseVO;
 import com.lsy.service_edu.vo.course.CoursePublishVo;
 import io.swagger.annotations.Api;
@@ -42,6 +43,13 @@ public class EduCourseController {
     public Result getCourseInfo(@PathVariable String courseId){
         CourseDTO courseInfo = eduCourseService.getCourseInfo(courseId);
         return Result.success(courseInfo);
+    }
+
+    @GetMapping("getCourseInfoOnService/{courseId}")
+    @ApiOperation("根据课程ID获取课程信息[内部调用]")
+    public CourseFrontVO getCourseInfoOnService(@PathVariable String courseId){
+        CourseFrontVO courseFrontVO = eduCourseService.getFrontCourseInfo(courseId);
+        return courseFrontVO;
     }
 
     @PutMapping("updateCourseInfo")

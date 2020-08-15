@@ -57,6 +57,19 @@ public class Result {
     }
 
     /**
+     * 成功操作(静态+状态码)
+     * @return
+     */
+    public static Result success(Integer code,Object data){
+        Result result = new Result();
+        result.setSuccess(true);
+        result.setCode(code);
+        result.setMessage(ResultCodeEnums.SUCCESS.getMsg());
+        result.setData(data);
+        return result;
+    }
+
+    /**
      * 失败操作(静态)
      * @return
      */
@@ -77,6 +90,19 @@ public class Result {
         result.setSuccess(false);
         result.setCode(ResultCodeEnums.ERROR.getCode());
         result.setMessage(ResultCodeEnums.ERROR.getMsg());
+        result.setData(data);
+        return result;
+    }
+
+    /**
+     * 失败操作(静态+状态码)
+     * @return
+     */
+    public static Result error(Integer code,Object data){
+        Result result = new Result();
+        result.setSuccess(false);
+        result.setCode(code);
+        result.setMessage(ResultCodeEnums.SUCCESS.getMsg());
         result.setData(data);
         return result;
     }
