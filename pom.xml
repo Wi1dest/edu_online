@@ -6,6 +6,7 @@
     <modules>
         <module>eduonline-service</module>
         <module>eduonline-common</module>
+        <module>eduonline-infrastructure</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

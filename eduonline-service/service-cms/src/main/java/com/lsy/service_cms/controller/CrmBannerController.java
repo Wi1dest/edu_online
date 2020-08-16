@@ -24,7 +24,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/cmsservice/banner")
-@CrossOrigin
 @Api(tags = "网站首页Banner列表")
 public class CrmBannerController {
     @Autowired

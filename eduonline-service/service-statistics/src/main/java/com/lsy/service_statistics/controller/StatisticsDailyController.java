@@ -21,7 +21,6 @@ import java.util.Map;
 @RestController
 @Api(tags = "统计控制器")
 @RequestMapping("/statisticsservice/statisticsDaily")
-@CrossOrigin
 public class StatisticsDailyController {
     @Autowired
     private StatisticsDailyService statisticsDailyService;
@@ -33,6 +32,7 @@ public class StatisticsDailyController {
         return Result.success();
     }
 
+    @ApiOperation("获取图表信息")
     @GetMapping("chart/{begin}/{end}/{type}")
     public Result showChart(@PathVariable String begin,@PathVariable String end,@PathVariable String type){
         Map<String, Object> map = statisticsDailyService.getChartData(begin, end, type);

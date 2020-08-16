@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
  * @Description 发送短信控制器
  * @Date 2020/08/11 15:37
  */
-@CrossOrigin
 @RequestMapping("/smsservice/sms")
 @RestController
 @Api(tags = "阿里短信模块")

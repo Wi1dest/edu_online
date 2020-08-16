@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/ucenterservice/member")
-@CrossOrigin
 @Api(tags = "用户管理模块")
 public class UcenterMemberController {
     @Autowired

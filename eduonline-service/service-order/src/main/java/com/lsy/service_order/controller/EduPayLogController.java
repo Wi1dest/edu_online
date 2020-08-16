@@ -20,7 +20,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/orderservice/log")
-@CrossOrigin
 @Api(tags = "微信支付模块")
 public class EduPayLogController {
     @Autowired

@@ -23,7 +23,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/eduservice/banner")
-@CrossOrigin
 @Api(tags = "Banner模块")
 public class EduBannerController {
     @Autowired

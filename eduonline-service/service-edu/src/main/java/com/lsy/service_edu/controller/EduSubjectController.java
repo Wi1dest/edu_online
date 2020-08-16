@@ -21,7 +21,6 @@ import java.util.List;
  * @since 2020-08-04
  */
 @RestController
-@CrossOrigin
 @Api(tags = "分类管理控制器")
 @RequestMapping("/eduservice/subject")
 public class EduSubjectController {

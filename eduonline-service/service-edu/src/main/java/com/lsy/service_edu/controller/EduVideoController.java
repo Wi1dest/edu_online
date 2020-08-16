@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/eduservice/video")
 @Api(tags = "小节控制器")
-@CrossOrigin
 public class EduVideoController {
     @Autowired
     private EduVideoService eduVideoService;

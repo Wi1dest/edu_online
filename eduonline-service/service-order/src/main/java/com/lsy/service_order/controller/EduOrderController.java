@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/orderservice/order")
-@CrossOrigin
 @Api(tags = "订单模块")
 public class EduOrderController {
     @Autowired

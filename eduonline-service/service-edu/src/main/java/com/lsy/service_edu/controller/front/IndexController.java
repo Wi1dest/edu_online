@@ -20,7 +20,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/eduservice/index")
-@CrossOrigin
 @Api(tags = "网站首页")
 public class IndexController {
     @Autowired

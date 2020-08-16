@@ -23,7 +23,6 @@ import java.util.Map;
 @RestController
 @Api(tags = "OSS上传控制器")
 @RequestMapping("/ossservice/file")
-@CrossOrigin
 public class OssController {
     @Autowired
     private OssService ossService;
