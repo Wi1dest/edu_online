@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * <p>
  * 网站统计日数据 前端控制器
@@ -29,6 +31,12 @@ public class StatisticsDailyController {
     public Result registerCount(@PathVariable String day){
         statisticsDailyService.createStatisticsByDay(day);
         return Result.success();
+    }
+
+    @GetMapping("chart/{begin}/{end}/{type}")
+    public Result showChart(@PathVariable String begin,@PathVariable String end,@PathVariable String type){
+        Map<String, Object> map = statisticsDailyService.getChartData(begin, end, type);
+        return Result.success(map);
     }
 }
 
