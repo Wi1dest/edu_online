@@ -8,6 +8,7 @@ import com.lsy.service_edu.dto.front.CourseFrontQueryDTO;
 import com.lsy.service_edu.entity.EduCourse;
 import com.lsy.service_edu.service.EduChapterService;
 import com.lsy.service_edu.service.EduCourseService;
+import com.lsy.service_edu.service.EduVideoService;
 import com.lsy.service_edu.vo.CourseFrontVO;
 import com.lsy.service_edu.vo.chapter.ChapterVO;
 import com.lsy.service_ucenter.entity.vo.MemberVo;
@@ -33,6 +34,9 @@ import java.util.Map;
 public class CourseController {
     @Autowired
     private EduCourseService eduCourseService;
+
+    @Autowired
+    private EduVideoService eduVideoService;
 
     @Autowired
     private EduChapterService eduChapterService;
@@ -68,5 +72,15 @@ public class CourseController {
         map.put("chapterVoList",chapterVOList);
         map.put("isBuy",buyStatus);
         return Result.success(map);
+    }
+
+    @ApiOperation("前端查询用户是否有权限观看此小节视频")
+    @GetMapping("checkUserCanWatchVdieo/{videoId}")
+    public Result checkUserCanWatchVdieo(@PathVariable String videoId, HttpServletRequest request){
+        String token = request.getHeader("token");
+        MemberVo member = memberClient.getMemberInfoByToken(token);
+        boolean flag = eduVideoService.checkUserCanWatchVdieo(videoId, member);
+        return flag ? Result.success() : Result.error("请购买后再观看!");
+
     }
 }
